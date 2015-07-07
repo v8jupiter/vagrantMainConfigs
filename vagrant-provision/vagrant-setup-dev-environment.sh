@@ -4,6 +4,10 @@
 echo "[Info] Configuring apache2 host"
 unlink /etc/httpd/conf/httpd.conf
 cp /vagrant/vagrant-provision/templates/httpd.conf /etc/httpd/conf/httpd.conf
+mkdir /etc/httpd/virtualhosts
+mkdir /etc/httpd/ssl
+cp /vagrant/vagrant-provision/ssl_certs/* /etc/httpd/ssl
+chkconfig httpd on
 
 echo "[info] build xdebug"
 cd /temp
@@ -18,9 +22,11 @@ sudo make install
 echo "[Info] Configuring php"
 unlink /etc/php.ini
 cp /vagrant/vagrant-provision/templates/php.ini /etc/php.ini
+rpm --import http://apt.sw.be/RPM-GPG-KEY.dag.txt
+rpm -Uhv http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+yum -y install php-mcrypt
 service httpd restart
 
 echo "[Info] Update Iptables"
-sudo iptables -I INPUT -i eth0 -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
-sudo iptables -I INPUT -i eth0 -p tcp --dport 443 -m state --state NEW,ESTABLISHED -j ACCEPT
-sudo service iptables save
+sudo iptables -F
+sudo iptables-save > /etc/sysconfig/iptables

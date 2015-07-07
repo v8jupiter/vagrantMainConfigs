@@ -4,6 +4,9 @@
 echo "[Info] Install apache2"
 sudo yum -y install httpd
 
+echo "[Info] Install apache_mod_ssl"
+sudo yum -y install mod_ssl
+
 echo "[Info] Install php5"
 sudo yum -y install php
 
