@@ -7,6 +7,9 @@ cp /vagrant/vagrant-provision/templates/httpd.conf /etc/httpd/conf/httpd.conf
 mkdir /etc/httpd/virtualhosts
 mkdir /etc/httpd/ssl
 cp /vagrant/vagrant-provision/ssl_certs/* /etc/httpd/ssl
+unlink /etc/httpd/conf.d/ssl.conf
+cp /vagrant/vagrant-provision/templates/ssl.conf /etc/httpd/conf.d/ssl.conf
+
 chkconfig httpd on
 
 echo "[info] build xdebug"

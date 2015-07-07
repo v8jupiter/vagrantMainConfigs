@@ -19,6 +19,9 @@ sudo yum -y install mysql
 echo "[Info] Install vim"
 sudo yum -y install vim
 
+echo "[Info] Install wget"
+sudo yum -y install wget
+
 echo "[Info] install php-devel"
 sudo yum -y install php-devel
 
