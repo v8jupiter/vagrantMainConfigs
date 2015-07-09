@@ -28,8 +28,14 @@ cp /vagrant/vagrant-provision/templates/php.ini /etc/php.ini
 rpm --import http://apt.sw.be/RPM-GPG-KEY.dag.txt
 rpm -Uhv http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 yum -y install php-mcrypt
-service httpd restart
+
 
 echo "[Info] Update Iptables"
 sudo iptables -F
 sudo iptables-save > /etc/sysconfig/iptables
+
+echo "[Info] Disable selinux"
+sed -i 's/SELINUX=\(enforcing\|permissive\)/SELINUX=disabled/g' /etc/selinux/config
+setenforce 0
+
+service httpd restart
