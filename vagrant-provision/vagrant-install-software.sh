@@ -19,6 +19,12 @@ sudo yum -y install php-mysql
 echo "[Info] Install mysql-client"
 sudo yum -y install mysql
 
+echo "[Info] Install mysql-server"
+sudo yum -y install mysql-server
+
+echo "[Info] Install pv"
+sudo yum -y install pv
+
 echo "[Info] Install vim"
 sudo yum -y install vim
 
