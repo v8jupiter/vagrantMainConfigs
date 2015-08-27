@@ -12,6 +12,14 @@ cp /vagrant/vagrant-provision/templates/ssl.conf /etc/httpd/conf.d/ssl.conf
 
 chkconfig httpd on
 
+echo "[Info] Configuring mysql"
+unlink /etc/my.conf
+cp /vagrant/vagrant-provision/templates/my.cnf /etc/my.conf
+sudo service mysqld restart
+chmod +x /vagrant/vagrant-provision/bin/mysql.sh
+sh /vagrant/vagrant-provision/bin/mysql.sh
+sudo service mysqld restart
+
 echo "[info] build xdebug"
 cd /temp
 wget -c http://xdebug.org/files/xdebug-2.2.1.tgz
@@ -28,7 +36,6 @@ cp /vagrant/vagrant-provision/templates/php.ini /etc/php.ini
 rpm --import http://apt.sw.be/RPM-GPG-KEY.dag.txt
 rpm -Uhv http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 yum -y install php-mcrypt
-
 
 echo "[Info] Update Iptables"
 sudo iptables -F
